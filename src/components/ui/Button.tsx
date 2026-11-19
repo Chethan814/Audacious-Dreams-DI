@@ -3,6 +3,7 @@ import React from "react";
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "outline-light";
+  size?: "default" | "hero";
   asChild?: boolean;
   href?: string;
   showArrow?: boolean;
@@ -10,24 +11,30 @@ export interface ButtonProps
 
 export function Button({
   variant = "primary",
+  size = "default",
   children,
   className = "",
   href,
   showArrow = false,
   ...props
 }: ButtonProps) {
-  const baseClasses =
-    "group inline-flex items-center justify-center gap-2 text-sm md:text-[15px] font-medium tracking-normal transition-colors duration-200 min-h-[44px] px-6 py-3 rounded-[2px] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2";
+  const sizeClasses =
+    size === "hero"
+      ? "h-14 min-h-[56px] px-8 text-base font-semibold"
+      : "min-h-[44px] px-6 py-3 text-sm md:text-[15px] font-medium";
+
+  const baseClasses = `group inline-flex items-center justify-center gap-2 tracking-normal transition-colors duration-200 rounded-[2px] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 ${sizeClasses}`;
 
   let variantClasses = "";
   if (variant === "primary") {
     // Saffron fill with ink text: > 9:1 contrast
-    variantClasses =
-      "bg-accent text-ink hover:bg-[#e09b00] active:bg-[#c98b00] font-semibold border border-transparent";
+    variantClasses = `bg-accent text-ink hover:bg-[#e09b00] active:bg-[#c98b00] font-semibold border border-transparent ${
+      size === "hero" ? "min-w-[200px]" : ""
+    }`;
   } else if (variant === "secondary") {
     // 1px ink outline
     variantClasses =
-      "bg-transparent text-ink border border-ink/80 hover:bg-ink/5 active:bg-ink/10";
+      "bg-transparent text-ink border border-ink/80 hover:bg-ink/5 active:bg-ink/10 font-semibold";
   } else if (variant === "outline-light") {
     // 1px outline on ink dark background
     variantClasses =

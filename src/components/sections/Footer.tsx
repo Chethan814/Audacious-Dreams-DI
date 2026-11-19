@@ -1,5 +1,6 @@
 import React from "react";
 import { siteContent } from "@/content/site";
+import { Container } from "@/components/ui/Container";
 import { Wordmark } from "@/components/ui/Wordmark";
 
 interface FooterProps {
@@ -10,7 +11,7 @@ export function Footer({ onOpenProgramme }: FooterProps) {
   const content = siteContent.footer;
   const navLinks = siteContent.header.nav;
 
-  // Real programmes to trigger modals
+  // Real programmes to trigger detail panels
   const programmeLinks = [
     { id: "gip", name: "Global Immersion Programme (GIP)" },
     { id: "giip", name: "Global Industry Integrated Programme (GIIP)" },
@@ -34,24 +35,24 @@ export function Footer({ onOpenProgramme }: FooterProps) {
       aria-label="Footer"
       className="w-full bg-ink text-paper border-t border-ink-line py-16 lg:py-20"
     >
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        {/* Top Grid: Wordmark & Narrative | Navigation Links | Programme Links */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 border-b border-ink-line pb-16">
-          {/* Col 1: Wordmark & Tagline */}
-          <div className="lg:col-span-5 space-y-4">
+      <Container>
+        {/* 4 Equal Columns Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+          {/* Col 1: Wordmark & Narrative */}
+          <div className="space-y-4">
             <Wordmark variant="paper" />
-            <p className="font-editorial-body text-ink-muted text-sm sm:text-base max-w-sm pt-2">
+            <p className="font-editorial-body text-ink-muted text-sm leading-relaxed max-w-xs pt-1">
               {content.tagline}
             </p>
-            <div className="pt-2">
+            <div className="pt-1">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-accent block">
                 {siteContent.hero.sinceLabel}
               </span>
             </div>
           </div>
 
-          {/* Col 2: Institutional Sections */}
-          <div className="lg:col-span-3 space-y-4">
+          {/* Col 2: Institutional Navigation */}
+          <div className="space-y-4">
             <h3 className="font-mono text-xs uppercase tracking-[0.08em] text-accent font-semibold">
               Institutional Navigation
             </h3>
@@ -60,7 +61,7 @@ export function Footer({ onOpenProgramme }: FooterProps) {
                 <li key={item.label}>
                   <a
                     href={item.href}
-                    className="editorial-link-hover text-sm text-ink-muted hover:text-paper transition-colors py-0.5"
+                    className="editorial-link-hover text-sm text-ink-muted hover:text-paper transition-colors py-0.5 inline-block"
                   >
                     {item.label}
                   </a>
@@ -69,8 +70,8 @@ export function Footer({ onOpenProgramme }: FooterProps) {
             </ul>
           </div>
 
-          {/* Col 3: Programme Specifications (Triggers Modals) */}
-          <div className="lg:col-span-4 space-y-4">
+          {/* Col 3: Programme Specifications (Triggers Panels) */}
+          <div className="space-y-4">
             <h3 className="font-mono text-xs uppercase tracking-[0.08em] text-accent font-semibold">
               Programme Specifications
             </h3>
@@ -85,7 +86,7 @@ export function Footer({ onOpenProgramme }: FooterProps) {
                     className="editorial-link-hover text-left text-sm text-ink-muted hover:text-paper transition-colors py-0.5 cursor-pointer flex items-center gap-1.5 focus-visible:outline-2"
                   >
                     <span>{item.name}</span>
-                    <span className="arrow-hover-nudge font-mono text-xs opacity-70">
+                    <span className="arrow-hover-nudge font-mono text-xs opacity-70" aria-hidden="true">
                       ↗
                     </span>
                   </button>
@@ -93,45 +94,59 @@ export function Footer({ onOpenProgramme }: FooterProps) {
               ))}
             </ul>
           </div>
+
+          {/* Col 4: Legal & Social */}
+          <div className="space-y-4">
+            <h3 className="font-mono text-xs uppercase tracking-[0.08em] text-accent font-semibold">
+              Legal & Governance
+            </h3>
+            {validSocialLinks.length > 0 || validPolicyLinks.length > 0 ? (
+              <div className="space-y-3">
+                {validSocialLinks.length > 0 && (
+                  <div className="flex flex-wrap gap-3">
+                    {validSocialLinks.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.url!}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-ink-muted hover:text-paper transition-colors"
+                      >
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                )}
+                {validPolicyLinks.length > 0 && (
+                  <div className="space-y-1 pt-2">
+                    {validPolicyLinks.map((item) => (
+                      <div key={item.name}>
+                        <a
+                          href={item.url!}
+                          className="text-xs text-ink-muted hover:text-paper transition-colors"
+                        >
+                          {item.name}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <p className="text-xs text-ink-muted leading-relaxed max-w-xs">
+                Audacious Dreams Foundation is an autonomous youth development organisation established in Vellore, Tamil Nadu, India.
+              </p>
+            )}
+          </div>
         </div>
 
-        {/* Bottom Bar: Copyright, Social (if any), Policies (if any) */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-4 text-xs font-mono text-ink-muted">
-          <p>{content.copyright}</p>
-
-          {/* Social Links (only when valid URL exists) */}
-          {validSocialLinks.length > 0 && (
-            <div className="flex items-center gap-4">
-              {validSocialLinks.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.url!}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-paper transition-colors"
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          )}
-
-          {/* Policy Links (only when valid URL exists) */}
-          {validPolicyLinks.length > 0 && (
-            <div className="flex items-center gap-4">
-              {validPolicyLinks.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.url!}
-                  className="hover:text-paper transition-colors"
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          )}
+        {/* Hairline rule above copyright line */}
+        <div className="border-t border-ink-line pt-8 mt-12 sm:mt-16">
+          <p className="text-xs font-mono text-ink-muted text-left">
+            {content.copyright}
+          </p>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

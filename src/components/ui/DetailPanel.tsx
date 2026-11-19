@@ -17,12 +17,14 @@ export function DetailPanel({
   onEnquire,
 }: DetailPanelProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
 
     if (isOpen) {
+      previousActiveElementRef.current = document.activeElement as HTMLElement | null;
       if (!dialog.open) {
         dialog.showModal();
         document.body.style.overflow = "hidden";
@@ -32,6 +34,9 @@ export function DetailPanel({
         dialog.close();
       }
       document.body.style.overflow = "";
+      if (previousActiveElementRef.current) {
+        previousActiveElementRef.current.focus();
+      }
     }
 
     const handleCancel = (e: Event) => {
@@ -71,7 +76,7 @@ export function DetailPanel({
     >
       <div className="fixed inset-0 flex justify-end pointer-events-none">
         <div
-          className={`pointer-events-auto w-full max-w-2xl h-full bg-ink text-paper border-l border-ink-line shadow-2xl flex flex-col transform transition-transform duration-[320ms] ease-[cubic-bezier(0.2,0.7,0.2,1)] ${
+          className={`pointer-events-auto w-full max-w-2xl h-full bg-ink text-paper border-l border-ink-line flex flex-col transform transition-transform duration-[320ms] ease-[cubic-bezier(0.2,0.7,0.2,1)] ${
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
           onClick={(e) => e.stopPropagation()}
@@ -82,8 +87,9 @@ export function DetailPanel({
           {/* Header Bar */}
           <div className="px-6 py-5 border-b border-ink-line flex items-center justify-between bg-ink/95 sticky top-0 z-10">
             <div className="flex items-center gap-3">
+              <span className="w-1.5 h-1.5 bg-accent inline-block flex-shrink-0 rounded-none" aria-hidden="true" />
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-accent font-semibold">
-                {programme.number} / Programme Specification
+                Programme Specification
               </span>
               {programme.badge && (
                 <span className="font-mono text-[11px] uppercase tracking-wider text-ink-muted border border-ink-line px-2 py-0.5">
@@ -161,7 +167,7 @@ export function DetailPanel({
                 <ul className="space-y-2.5">
                   {programme.gains.map((gain, idx) => (
                     <li key={idx} className="flex items-start gap-3 text-sm text-paper/90">
-                      <span className="text-accent font-mono text-xs mt-0.5">✦</span>
+                      <span className="w-1.5 h-1.5 bg-accent flex-shrink-0 mt-1.5 rounded-none" aria-hidden="true" />
                       <span>{gain}</span>
                     </li>
                   ))}
@@ -178,7 +184,7 @@ export function DetailPanel({
                 <ul className="space-y-2.5">
                   {programme.offerings.map((offering, idx) => (
                     <li key={idx} className="flex items-start gap-3 text-sm text-paper/90">
-                      <span className="text-accent font-mono text-xs mt-0.5">✦</span>
+                      <span className="w-1.5 h-1.5 bg-accent flex-shrink-0 mt-1.5 rounded-none" aria-hidden="true" />
                       <span>{offering}</span>
                     </li>
                   ))}
@@ -243,7 +249,7 @@ export function DetailPanel({
                 <ul className="space-y-2.5">
                   {programme.focusAreas.map((area, idx) => (
                     <li key={idx} className="flex items-start gap-3 text-sm text-paper/90">
-                      <span className="text-accent font-mono text-xs mt-0.5">✦</span>
+                      <span className="w-1.5 h-1.5 bg-accent flex-shrink-0 mt-1.5 rounded-none" aria-hidden="true" />
                       <span>{area}</span>
                     </li>
                   ))}
@@ -313,7 +319,7 @@ export function DetailPanel({
                 <ul className="space-y-2.5">
                   {programme.giipLiteModules.map((mod, idx) => (
                     <li key={idx} className="flex items-start gap-3 text-sm text-paper/90">
-                      <span className="text-accent font-mono text-xs mt-0.5">✦</span>
+                      <span className="w-1.5 h-1.5 bg-accent flex-shrink-0 mt-1.5 rounded-none" aria-hidden="true" />
                       <span>{mod}</span>
                     </li>
                   ))}

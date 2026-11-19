@@ -100,7 +100,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-paper text-ink font-sans selection:bg-accent selection:text-ink antialiased">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-accent focus:text-ink focus:font-mono focus:text-xs focus:font-semibold focus:shadow-lg focus:outline-none"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-accent focus:text-ink focus:font-mono focus:text-xs focus:font-semibold focus:border focus:border-ink focus:outline-none"
         >
           Skip to main content
         </a>

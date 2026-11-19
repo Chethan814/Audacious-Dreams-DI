@@ -1,6 +1,7 @@
 import React from "react";
 import { siteContent, EnquiryTypeValue } from "@/content/site";
-import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { Container } from "@/components/ui/Container";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { MotionFade } from "@/components/ui/MotionFade";
 
 interface GetInvolvedProps {
@@ -19,34 +20,28 @@ export function GetInvolved({ onSelectTier }: GetInvolvedProps) {
   };
 
   return (
-    <SectionWrapper
+    <section
       id="get-involved"
-      sectionNumber={content.sectionNumber}
-      sectionName={content.sectionName}
-      theme="ink"
+      aria-labelledby="get-involved-heading"
+      className="relative w-full border-b border-ink-line bg-ink text-paper py-[clamp(72px,9vw,128px)]"
     >
-      <div className="space-y-16">
-        {/* Section Heading */}
+      <Container>
+        {/* Centred Header Block */}
         <MotionFade>
-          <div className="max-w-3xl">
-            <h2 className="font-editorial-h2 text-paper mb-4">
-              {content.headingPrefix}
-              <span className="font-serif italic font-normal text-[1.1em] text-accent px-0.5">
-                {content.headingEmphasized}
-              </span>
-              {content.headingSuffix}
-            </h2>
-            <p className="font-editorial-body text-ink-muted text-pretty">
-              Whether you are an aspiring student, a forward-looking institutional leader, or an industry partner, discover your pathway with ADF.
-            </p>
-          </div>
+          <SectionHeader
+            eyebrow={content.eyebrow}
+            headingPrefix={content.headingPrefix}
+            headingEmphasized={content.headingEmphasized}
+            headingSuffix={content.headingSuffix}
+            intro="Whether you are an aspiring student, a forward-looking institutional leader, or an industry partner, discover your pathway with ADF."
+            theme="ink"
+          />
         </MotionFade>
 
-        {/* 2x2 Grid with Hairlines */}
+        {/* 2x2 Grid of Equal-Height Cells with Hairline Dividers */}
         <MotionFade delay={100}>
-          <div className="border border-ink-line divide-y sm:divide-y-0 sm:grid sm:grid-cols-2 divide-ink-line">
+          <div className="border border-ink-line divide-y md:divide-y-0 md:grid md:grid-cols-2 divide-ink-line">
             {content.tiers.map((tier, idx) => {
-              // Apply border right to left column and border bottom to top row
               const isLeftColumn = idx % 2 === 0;
               const isTopRow = idx < 2;
 
@@ -54,26 +49,25 @@ export function GetInvolved({ onSelectTier }: GetInvolvedProps) {
                 <div
                   key={idx}
                   className={`p-6 sm:p-8 lg:p-10 flex flex-col justify-between hover:bg-white/[0.02] transition-colors ${
-                    isLeftColumn ? "sm:border-r sm:border-ink-line" : ""
-                  } ${isTopRow ? "sm:border-b sm:border-ink-line" : ""}`}
+                    isLeftColumn ? "md:border-r md:border-ink-line" : ""
+                  } ${isTopRow ? "md:border-b md:border-ink-line" : ""}`}
                 >
+                  {/* Audience Label, Title & Description */}
                   <div className="space-y-4 mb-8">
                     <span className="font-mono text-xs uppercase tracking-[0.08em] text-accent font-semibold block">
-                      Pathway 0{idx + 1}
-                    </span>
-                    <h3 className="text-2xl font-semibold tracking-tight text-paper">
                       {tier.target}
-                    </h3>
+                    </span>
                     <p className="text-base text-ink-muted leading-relaxed">
                       {tier.description}
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-ink-line">
+                  {/* CTA pinned to the bottom-left with mt-auto so all four line up */}
+                  <div className="mt-auto pt-6 border-t border-ink-line/60">
                     <button
                       type="button"
                       onClick={() => handleCtaClick(tier.enquiryType)}
-                      className="group inline-flex items-center gap-2 text-sm font-mono uppercase tracking-wider text-accent hover:text-[#ffc333] transition-colors cursor-pointer py-2 focus-visible:outline-2 focus-visible:outline-offset-2"
+                      className="group inline-flex items-center gap-2 text-sm font-mono uppercase tracking-wider text-accent hover:text-[#ffc333] transition-colors cursor-pointer min-h-[48px] py-3 focus-visible:outline-2 focus-visible:outline-offset-2"
                     >
                       <span className="editorial-link-hover">{tier.ctaText}</span>
                       <span
@@ -89,7 +83,7 @@ export function GetInvolved({ onSelectTier }: GetInvolvedProps) {
             })}
           </div>
         </MotionFade>
-      </div>
-    </SectionWrapper>
+      </Container>
+    </section>
   );
 }

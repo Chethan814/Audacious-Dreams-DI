@@ -29,7 +29,6 @@ export interface ApproachStep {
 
 export interface FocusArea {
   id: string;
-  number: string;
   title: string;
   description: string;
   bullets: string[];
@@ -37,7 +36,6 @@ export interface FocusArea {
 
 export interface ProgrammeDetail {
   id: string;
-  number: string;
   title: string;
   subtitle: string;
   badge?: string;
@@ -149,8 +147,7 @@ export interface SiteConfig {
     countriesList: string;
   };
   about: {
-    sectionNumber: string;
-    sectionName: string;
+    eyebrow: string;
     headingPrefix: string;
     headingEmphasized: string;
     headingSuffix: string;
@@ -170,16 +167,14 @@ export interface SiteConfig {
     };
   };
   whatWeDo: {
-    sectionNumber: string;
-    sectionName: string;
+    eyebrow: string;
     headingPrefix: string;
     headingEmphasized: string;
     headingSuffix: string;
     focusAreas: FocusArea[];
   };
   programmes: {
-    sectionNumber: string;
-    sectionName: string;
+    eyebrow: string;
     headingPrefix: string;
     headingEmphasized: string;
     headingSuffix: string;
@@ -187,8 +182,7 @@ export interface SiteConfig {
     secondary: ProgrammeDetail[];
   };
   impact: {
-    sectionNumber: string;
-    sectionName: string;
+    eyebrow: string;
     headingPrefix: string;
     headingEmphasized: string;
     headingSuffix: string;
@@ -204,8 +198,7 @@ export interface SiteConfig {
     footnote: string;
   };
   organisation: {
-    sectionNumber: string;
-    sectionName: string;
+    eyebrow: string;
     headingPrefix: string;
     headingEmphasized: string;
     headingSuffix: string;
@@ -227,8 +220,7 @@ export interface SiteConfig {
     };
   };
   partners: {
-    sectionNumber: string;
-    sectionName: string;
+    eyebrow: string;
     headingPrefix: string;
     headingEmphasized: string;
     headingSuffix: string;
@@ -240,16 +232,14 @@ export interface SiteConfig {
     };
   };
   getInvolved: {
-    sectionNumber: string;
-    sectionName: string;
+    eyebrow: string;
     headingPrefix: string;
     headingEmphasized: string;
     headingSuffix: string;
     tiers: InvolvementTier[];
   };
   contact: {
-    sectionNumber: string;
-    sectionName: string;
+    eyebrow: string;
     headingPrefix: string;
     headingEmphasized: string;
     headingSuffix: string;
@@ -352,8 +342,7 @@ export const siteContent: SiteConfig = {
     countriesList: "Malaysia · Singapore · UAE · Sri Lanka · South Korea and others",
   },
   about: {
-    sectionNumber: "01",
-    sectionName: "Who we are",
+    eyebrow: "Who we are",
     headingPrefix: "A grassroots initiative, now an ",
     headingEmphasized: "institutional",
     headingSuffix: " partner.",
@@ -408,15 +397,13 @@ export const siteContent: SiteConfig = {
     },
   },
   whatWeDo: {
-    sectionNumber: "02",
-    sectionName: "Focus areas",
+    eyebrow: "Focus areas",
     headingPrefix: "Structured pathways for youth ",
     headingEmphasized: "capability",
     headingSuffix: " and institutional growth.",
     focusAreas: [
       {
         id: "leadership",
-        number: "01",
         title: "Youth Leadership & Development",
         description: "Building leadership, confidence, participation and responsibility among young people.",
         bullets: [
@@ -428,7 +415,6 @@ export const siteContent: SiteConfig = {
       },
       {
         id: "education",
-        number: "02",
         title: "Education & Skill Development",
         description: "Strengthening practical learning, digital capabilities and career readiness.",
         bullets: [
@@ -442,7 +428,6 @@ export const siteContent: SiteConfig = {
       },
       {
         id: "international",
-        number: "03",
         title: "International Engagement",
         description: "Creating opportunities for cross-cultural learning, exchanges and global exposure.",
         bullets: [
@@ -455,7 +440,6 @@ export const siteContent: SiteConfig = {
       },
       {
         id: "industry",
-        number: "04",
         title: "Industry Integration",
         description: "Connecting academic learning with industry knowledge and practical experiences.",
         bullets: [
@@ -468,7 +452,6 @@ export const siteContent: SiteConfig = {
       },
       {
         id: "community",
-        number: "05",
         title: "Community & Sustainable Development",
         description: "Encouraging community participation, volunteering and action-based learning, and promoting youth participation in sustainable development.",
         bullets: [
@@ -481,7 +464,6 @@ export const siteContent: SiteConfig = {
       },
       {
         id: "collaboration",
-        number: "06",
         title: "Institutional & Global Collaboration",
         description: "Building networks between institutions, industry and international bodies.",
         bullets: [
@@ -495,15 +477,13 @@ export const siteContent: SiteConfig = {
     ],
   },
   programmes: {
-    sectionNumber: "03",
-    sectionName: "Programmes",
+    eyebrow: "Programmes",
     headingPrefix: "Programmes for schools, universities and ",
     headingEmphasized: "institutions",
     headingSuffix: ".",
     flagship: [
       {
         id: "gip",
-        number: "01",
         title: "Global Immersion Programme (GIP)",
         subtitle: "International Youth and Group Study Exchange Programme",
         badge: "Flagship International",
@@ -547,7 +527,6 @@ export const siteContent: SiteConfig = {
       },
       {
         id: "giip",
-        number: "02",
         title: "Global Industry Integrated Programme (GIIP)",
         subtitle: "Industry-Integrated Higher Education Enrichment",
         badge: "Higher Education Model",
@@ -596,7 +575,6 @@ export const siteContent: SiteConfig = {
       },
       {
         id: "gcip",
-        number: "03",
         title: "Global Career Integrated Programme (GCIP)",
         subtitle: "Secondary Education Pathway (Grades 11 & 12)",
         badge: "Secondary Education",
@@ -615,7 +593,6 @@ export const siteContent: SiteConfig = {
       },
       {
         id: "unicef",
-        number: "04",
         title: "UNICEF Skill Development Initiative",
         subtitle: "Project-Specific LTA Engagement",
         badge: "Institutional Engagement",
@@ -640,7 +617,6 @@ export const siteContent: SiteConfig = {
     secondary: [
       {
         id: "giip-lite",
-        number: "05",
         title: "GIIP-LITE",
         subtitle: "One-Year Academic Enrichment",
         badge: "Annual Enrichment",
@@ -665,7 +641,6 @@ export const siteContent: SiteConfig = {
       },
       {
         id: "internships",
-        number: "06",
         title: "Internships & International Fellowships",
         subtitle: "Applied Experience & Global Mobility",
         badge: "Fellowships",
@@ -684,7 +659,6 @@ export const siteContent: SiteConfig = {
       },
       {
         id: "leadership-meetings",
-        number: "07",
         title: "High-Level Education Leadership Meetings",
         subtitle: "Institutional Policy & Executive Dialogue",
         badge: "Executive Dialogue",
@@ -703,8 +677,7 @@ export const siteContent: SiteConfig = {
     ],
   },
   impact: {
-    sectionNumber: "04",
-    sectionName: "Impact",
+    eyebrow: "Impact",
     headingPrefix: "Creating opportunities. Enabling ",
     headingEmphasized: "participation",
     headingSuffix: ".",
@@ -740,8 +713,7 @@ export const siteContent: SiteConfig = {
     footnote: "Individual programme-reported figures, not a deduplicated total of unique beneficiaries. Some participants may have taken part in multiple initiatives.",
   },
   organisation: {
-    sectionNumber: "05",
-    sectionName: "Organisation",
+    eyebrow: "Organisation",
     headingPrefix: "Institutional structure and strategic ",
     headingEmphasized: "governance",
     headingSuffix: ".",
@@ -780,8 +752,7 @@ export const siteContent: SiteConfig = {
     },
   },
   partners: {
-    sectionNumber: "06",
-    sectionName: "Partners",
+    eyebrow: "Partners",
     headingPrefix: "Working together to create ",
     headingEmphasized: "opportunities",
     headingSuffix: ".",
@@ -810,8 +781,7 @@ export const siteContent: SiteConfig = {
     },
   },
   getInvolved: {
-    sectionNumber: "07",
-    sectionName: "Get involved",
+    eyebrow: "Get involved",
     headingPrefix: "Be part of the ",
     headingEmphasized: "journey",
     headingSuffix: ".",
@@ -843,8 +813,7 @@ export const siteContent: SiteConfig = {
     ],
   },
   contact: {
-    sectionNumber: "08",
-    sectionName: "Contact",
+    eyebrow: "Contact",
     headingPrefix: "Let's ",
     headingEmphasized: "connect",
     headingSuffix: ".",

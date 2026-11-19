@@ -1,6 +1,7 @@
 import React from "react";
 import { siteContent, EnquiryTypeValue } from "@/content/site";
-import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { Container } from "@/components/ui/Container";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { MotionFade } from "@/components/ui/MotionFade";
 import { Button } from "@/components/ui/Button";
 
@@ -18,80 +19,71 @@ export function Partners({ onPartnerClick }: PartnersProps) {
   };
 
   return (
-    <SectionWrapper
+    <section
       id="partners"
-      sectionNumber={content.sectionNumber}
-      sectionName={content.sectionName}
-      theme="paper"
+      aria-labelledby="partners-heading"
+      className="relative w-full border-b border-line bg-paper py-[clamp(72px,9vw,128px)]"
     >
-      <div className="space-y-16">
-        {/* Section Heading & Narrative */}
+      <Container>
+        {/* Centred Header Block */}
         <MotionFade>
-          <div className="max-w-3xl">
-            <h2 className="font-editorial-h2 text-ink mb-4">
-              {content.headingPrefix}
-              <span className="font-serif italic font-normal text-[1.1em] px-0.5">
-                {content.headingEmphasized}
-              </span>
-              {content.headingSuffix}
-            </h2>
-            <p className="font-editorial-body text-ink/80 text-pretty">
-              {content.copy}
-            </p>
-          </div>
+          <SectionHeader
+            eyebrow={content.eyebrow}
+            headingPrefix={content.headingPrefix}
+            headingEmphasized={content.headingEmphasized}
+            headingSuffix={content.headingSuffix}
+            intro={content.copy}
+            theme="paper"
+          />
         </MotionFade>
 
-        {/* Four Columns Divided by Hairlines */}
-        <MotionFade delay={100}>
-          <div className="border border-line divide-y md:divide-y-0 md:divide-x divide-line grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 bg-paper-2/20">
-            {content.pillars.map((pillar, idx) => (
-              <div
-                key={idx}
-                className="p-6 sm:p-8 flex flex-col justify-between space-y-4 hover:bg-paper-2/50 transition-colors"
-              >
-                <div>
-                  <span className="font-mono text-xs uppercase tracking-[0.08em] text-accent font-semibold block mb-3">
-                    0{idx + 1} / Pillar
-                  </span>
-                  <h3 className="text-xl font-semibold tracking-tight text-ink mb-2">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-sm text-ink/75 leading-relaxed">
-                    {pillar.description}
-                  </p>
+        <div className="space-y-16">
+          {/* Four Equal Columns Divided by Hairlines (No numerals, no repeated tags) */}
+          <MotionFade delay={100}>
+            <div className="border border-line divide-y sm:divide-y-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:divide-x divide-line bg-paper-2/20">
+              {content.pillars.map((pillar, idx) => (
+                <div
+                  key={idx}
+                  className="p-6 sm:p-8 flex flex-col justify-between space-y-4 hover:bg-paper-2/50 transition-colors"
+                >
+                  <div>
+                    <h3 className="text-xl font-semibold tracking-tight text-ink mb-3">
+                      {pillar.title}
+                    </h3>
+                    <p className="text-sm text-ink/75 leading-relaxed">
+                      {pillar.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-line/60">
-                  <span className="font-mono text-[11px] text-muted uppercase tracking-wider block">
-                    Institutional Collaboration
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </MotionFade>
-
-        {/* Section CTA */}
-        <MotionFade delay={150}>
-          <div className="border-t border-line pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div>
-              <h3 className="text-lg font-semibold text-ink">
-                Ready to explore an institutional arrangement?
-              </h3>
-              <p className="font-editorial-body text-sm text-ink/70 mt-0.5">
-                We partner with accredited universities, colleges, and academic institutions worldwide.
-              </p>
+              ))}
             </div>
-            <Button
-              variant="primary"
-              href={content.cta.href}
-              onClick={handleClick}
-              showArrow
-            >
-              {content.cta.text}
-            </Button>
-          </div>
-        </MotionFade>
-      </div>
-    </SectionWrapper>
+          </MotionFade>
+
+          {/* Full-Width CTA Band with Hairline Above and Below: Text Left, Button Right */}
+          <MotionFade delay={150}>
+            <div className="border-y border-line py-8 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+              <div className="max-w-xl">
+                <h3 className="text-xl sm:text-2xl font-semibold text-ink">
+                  Ready to explore an institutional arrangement?
+                </h3>
+                <p className="font-editorial-body text-sm sm:text-base text-ink/70 mt-1">
+                  We partner with accredited universities, colleges, and academic institutions worldwide.
+                </p>
+              </div>
+              <Button
+                variant="primary"
+                size="hero"
+                href={content.cta.href}
+                onClick={handleClick}
+                showArrow
+                className="w-full sm:w-auto flex-shrink-0"
+              >
+                {content.cta.text}
+              </Button>
+            </div>
+          </MotionFade>
+        </div>
+      </Container>
+    </section>
   );
 }

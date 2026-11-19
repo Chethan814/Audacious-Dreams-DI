@@ -13,6 +13,7 @@ import { Partners } from "@/components/sections/Partners";
 import { GetInvolved } from "@/components/sections/GetInvolved";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
+import { MobileStickyBar } from "@/components/ui/MobileStickyBar";
 
 export default function Home() {
   const [selectedEnquiryType, setSelectedEnquiryType] =
@@ -65,6 +66,7 @@ export default function Home() {
       </main>
 
       <Footer onOpenProgramme={handleOpenProgrammeModal} />
+      <MobileStickyBar onPartnerClick={handlePartnerWithUs} />
     </div>
   );
 }

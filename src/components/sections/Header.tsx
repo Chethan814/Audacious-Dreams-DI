@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 import { siteContent } from "@/content/site";
 import { Wordmark } from "@/components/ui/Wordmark";
 import { Button } from "@/components/ui/Button";
+import { Container } from "@/components/ui/Container";
 
 interface HeaderProps {
   onPartnerClick?: () => void;
@@ -12,6 +14,8 @@ interface HeaderProps {
 export function Header({ onPartnerClick }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileSheetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,20 +32,47 @@ export function Header({ onPartnerClick }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Handle escape key and scroll lock for mobile menu
+  // Handle escape key, focus trapping, and scroll lock for mobile menu
   useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    document.body.style.overflow = "hidden";
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isMobileMenuOpen) {
+      if (e.key === "Escape") {
         setIsMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+
+      if (e.key === "Tab" && mobileSheetRef.current) {
+        const focusables = mobileSheetRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length === 0) return;
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       }
     };
 
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "";
-    }
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Initial focus on close button
+    const closeBtn = mobileSheetRef.current?.querySelector<HTMLElement>("button");
+    closeBtn?.focus();
 
     return () => {
       document.body.style.overflow = "";
@@ -49,24 +80,28 @@ export function Header({ onPartnerClick }: HeaderProps) {
     };
   }, [isMobileMenuOpen]);
 
+  const handleCloseMenu = () => {
+    setIsMobileMenuOpen(false);
+    menuButtonRef.current?.focus();
+  };
+
   return (
     <header
       className={`sticky top-0 z-40 w-full transition-all duration-300 ${
         isScrolled
-          ? "bg-paper/95 backdrop-blur-md border-b border-line shadow-[0_1px_3px_rgba(11,18,32,0.03)]"
+          ? "bg-paper/95 backdrop-blur-md border-b border-line"
           : "bg-transparent border-b border-transparent"
       }`}
     >
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+      <Container>
+        <div className="flex items-center justify-between h-[68px]">
           {/* Logo / Wordmark */}
-          <a
-            href="#"
-            className="flex items-center focus-visible:outline-2 py-2"
-            aria-label="Audacious Dreams Foundation - Home"
+          <Link
+            href="/"
+            className="flex items-center focus-visible:outline-2 py-1"
           >
             <Wordmark variant="ink" />
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav
@@ -84,7 +119,7 @@ export function Header({ onPartnerClick }: HeaderProps) {
             ))}
           </nav>
 
-          {/* Header Action Button */}
+          {/* Header Action Button - Stays visible at all times on desktop */}
           <div className="hidden lg:flex items-center">
             <Button
               variant="primary"
@@ -99,9 +134,10 @@ export function Header({ onPartnerClick }: HeaderProps) {
           {/* Mobile Menu Hamburger Button */}
           <div className="flex lg:hidden items-center">
             <button
+              ref={menuButtonRef}
               type="button"
               onClick={() => setIsMobileMenuOpen(true)}
-              className="p-3 text-ink border border-line rounded-[2px] hover:bg-paper-2 focus-visible:outline-2 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+              className="p-2.5 text-ink border border-line rounded-[2px] hover:bg-paper-2 focus-visible:outline-2 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
               aria-label="Open mobile navigation menu"
               aria-expanded={isMobileMenuOpen}
             >
@@ -111,11 +147,12 @@ export function Header({ onPartnerClick }: HeaderProps) {
             </button>
           </div>
         </div>
-      </div>
+      </Container>
 
-      {/* Mobile Full-Screen Menu Sheet */}
+      {/* Mobile Full-Screen Menu Sheet (Focus Trapped) */}
       {isMobileMenuOpen && (
         <div
+          ref={mobileSheetRef}
           role="dialog"
           aria-modal="true"
           aria-label="Navigation Menu"
@@ -126,7 +163,7 @@ export function Header({ onPartnerClick }: HeaderProps) {
             <Wordmark variant="ink" />
             <button
               type="button"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={handleCloseMenu}
               className="p-2.5 text-ink font-mono text-xs uppercase tracking-wider border border-line rounded-[2px] hover:bg-paper-2 focus-visible:outline-2 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
               aria-label="Close mobile navigation menu"
             >
@@ -134,21 +171,21 @@ export function Header({ onPartnerClick }: HeaderProps) {
             </button>
           </div>
 
-          {/* Mobile Sheet Links */}
+          {/* Mobile Sheet Links - Without numbers */}
           <nav
             aria-label="Mobile Navigation"
             className="flex flex-col py-8 space-y-4"
           >
-            {siteContent.header.nav.map((item, idx) => (
+            {siteContent.header.nav.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={handleCloseMenu}
                 className="group flex items-baseline justify-between py-2 text-2xl font-semibold text-ink border-b border-line/50 hover:border-ink transition-colors"
               >
                 <span>{item.label}</span>
-                <span className="font-mono text-xs text-muted group-hover:text-ink">
-                  0{idx + 1} →
+                <span className="arrow-hover-nudge font-mono text-sm text-muted group-hover:text-ink">
+                  →
                 </span>
               </a>
             ))}
@@ -158,9 +195,10 @@ export function Header({ onPartnerClick }: HeaderProps) {
           <div className="pt-6 border-t border-line flex flex-col gap-4">
             <Button
               variant="primary"
+              size="hero"
               href={siteContent.header.cta.href}
               onClick={() => {
-                setIsMobileMenuOpen(false);
+                handleCloseMenu();
                 if (onPartnerClick) onPartnerClick();
               }}
               className="w-full text-center"
