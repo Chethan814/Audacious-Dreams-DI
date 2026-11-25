@@ -77,6 +77,15 @@ export interface ReachTableRow {
   participants: string;
 }
 
+export interface FieldMoment {
+  category: string;
+  title: string;
+  caption: string;
+  image: string;
+  alt: string;
+  objectPosition?: "center" | "top" | "leaders";
+}
+
 export interface OrgNode {
   title: string;
   description: string;
@@ -196,6 +205,14 @@ export interface SiteConfig {
     };
     tableRows: ReachTableRow[];
     footnote: string;
+  };
+  inPractice: {
+    eyebrow: string;
+    headingPrefix: string;
+    headingEmphasized: string;
+    headingSuffix: string;
+    intro: string;
+    moments: FieldMoment[];
   };
   organisation: {
     eyebrow: string;
@@ -711,6 +728,63 @@ export const siteContent: SiteConfig = {
       { programme: "Commonwealth Youth Development Initiatives", institutions: "20+", participants: "4,000+" },
     ],
     footnote: "Individual programme-reported figures, not a deduplicated total of unique beneficiaries. Some participants may have taken part in multiple initiatives.",
+  },
+  inPractice: {
+    eyebrow: "In Practice",
+    headingPrefix: "From campus cohorts to ",
+    headingEmphasized: "international",
+    headingSuffix: " forums.",
+    intro: "A field record of student delegations, campus-wide skill cohorts, and academic leadership dialogues across Tamil Nadu and partner nations.",
+    moments: [
+      {
+        category: "International Immersion",
+        title: "Malaysia Immersion & Internship Delegation",
+        caption: "Tamil Nadu undergraduate scholars welcomed in Malaysia under the International Immersion and Internship Programme in collaboration with GUSD and the Malaysian Indian Youth Council.",
+        image: "/images/international-immersion/malaysia-delegation-arrival.jpeg",
+        alt: "Tamil Nadu undergraduate student delegation and ADF coordinators holding welcome banners upon arrival in Malaysia",
+        objectPosition: "center",
+      },
+      {
+        category: "International Immersion",
+        title: "Bodhi MUN Future Changemakers, Malaysia",
+        caption: "Cross-border youth diplomacy and SDG dialogue hosted at MAHSA International School, Selangor, presented by ADF, GUSD, and international associate partners.",
+        image: "/images/international-immersion/malaysia-mun-stage-2026.jpeg",
+        alt: "Presenters and youth leaders on stage before the Future Changemakers International Model United Nations Malaysia backdrop",
+        objectPosition: "center",
+      },
+      {
+        category: "Institutional Leadership",
+        title: "High-Level Education Leaders Meeting",
+        caption: "College principals, deans, and academic leaders convening in Puducherry to advance global academic collaboration and launch the Global Industry Integrated Programme (GIIP) in Tamil Nadu.",
+        image: "/images/institutional-leadership/education-leaders-meeting-2025.jpeg",
+        alt: "Academic leaders and institutional heads gathered at the High-Level Education Leaders Meeting 2025 in Puducherry",
+        objectPosition: "leaders",
+      },
+      {
+        category: "International Immersion",
+        title: "Global Youth & Academic Forum",
+        caption: "Student delegates addressing international audiences, faculty advisors, and partner organisation representatives during structured forum proceedings.",
+        image: "/images/international-immersion/international-conference-auditorium.jpeg",
+        alt: "Youth delegate speaking from a podium to a packed auditorium of students and international guests",
+        objectPosition: "center",
+      },
+      {
+        category: "Campus Engagement",
+        title: "Campus-Wide Certification Cohorts",
+        caption: "Participating undergraduate cohorts celebrating programme completion alongside college leadership and faculty coordinators.",
+        image: "/images/campus-engagement/campus-cohort-scale-overview.jpeg",
+        alt: "Large cohort of college students holding completion certificates in a campus courtyard alongside faculty and ADF leadership",
+        objectPosition: "center",
+      },
+      {
+        category: "Campus Engagement",
+        title: "Student Leadership & Skill Mobilisation",
+        caption: "Interactive orientation and skill-readiness assemblies equipping young people inside partner higher education campuses.",
+        image: "/images/campus-engagement/student-auditorium-engagement.jpeg",
+        alt: "Students raising hands in participation during a campus auditorium leadership session with faculty seated in the front row",
+        objectPosition: "top",
+      },
+    ],
   },
   organisation: {
     eyebrow: "Organisation",

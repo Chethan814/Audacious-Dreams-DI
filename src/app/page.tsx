@@ -8,6 +8,7 @@ import { About } from "@/components/sections/About";
 import { WhatWeDo } from "@/components/sections/WhatWeDo";
 import { Programmes } from "@/components/sections/Programmes";
 import { Impact } from "@/components/sections/Impact";
+import { InPractice } from "@/components/sections/InPractice";
 import { Organisation } from "@/components/sections/Organisation";
 import { Partners } from "@/components/sections/Partners";
 import { GetInvolved } from "@/components/sections/GetInvolved";
@@ -56,6 +57,7 @@ export default function Home() {
           onCloseModal={handleCloseProgrammeModal}
         />
         <Impact />
+        <InPractice />
         <Organisation />
         <Partners onPartnerClick={handleSelectTier} />
         <GetInvolved onSelectTier={handleSelectTier} />
